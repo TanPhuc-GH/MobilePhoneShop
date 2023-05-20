@@ -1,4 +1,4 @@
-package com.hcmute.MobilePhoneShop.entities;
+package com.hcmute.MobilePhoneShop.dtos;
 
 import com.hcmute.MobilePhoneShop.entities.embedded.ProductPrice;
 import com.hcmute.MobilePhoneShop.entities.embedded.QuantityOfColor;
@@ -7,8 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
@@ -16,18 +14,13 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "product")
-public class Product {
-    @Id
-    private String id;
+public class ProductDTO {
 
     private String productName;
 
     private Integer quantity;
 
     private String description;
-
-    private Boolean sold_out = false;
 
     private List<String> storages;
 
@@ -39,7 +32,6 @@ public class Product {
 
     private List<String> color;
 
-//    The price depends on storage and color of the product
     private List<ProductPrice> price;
 
     private Boolean disable = false;

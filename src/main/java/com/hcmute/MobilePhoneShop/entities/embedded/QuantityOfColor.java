@@ -1,7 +1,5 @@
 package com.hcmute.MobilePhoneShop.entities.embedded;
 
-import com.hcmute.MobilePhoneShop.utils.EnumColors;
-import com.hcmute.MobilePhoneShop.utils.EnumStorage;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,10 +9,12 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductPrice {
+public class QuantityOfColor {
+    private String color;
+
     private String storage;
 
-    private String colors;
+    private Integer quantity;
 
-    private double price;
+    private Boolean sold_out = false;
 }
