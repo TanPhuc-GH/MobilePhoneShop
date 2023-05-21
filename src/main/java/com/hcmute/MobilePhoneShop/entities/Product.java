@@ -35,7 +35,7 @@ public class Product {
 
     private String categoriesId;
 
-    private String bandId;
+    private String brandId;
 
     private List<String> color;
 

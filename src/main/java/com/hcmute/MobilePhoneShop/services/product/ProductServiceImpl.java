@@ -44,7 +44,7 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public ProductDetailDTO getProductDetail(String id) {
         Product product = productRepository.findById(id).orElseThrow(() -> new NotFoundException(String.format("Product with %s not found", id)));
-        Brand brand =  brandRepository.findById(product.getBandId()).orElseThrow(() -> new NotFoundException(String.format("Brand with %s not found", id)));
+        Brand brand =  brandRepository.findById(product.getBrandId()).orElseThrow(() -> new NotFoundException(String.format("Brand with %s not found", id)));
         ProductDetailDTO productDetailDTO = new ProductDetailDTO(product, brand.getBrandName());
         return productDetailDTO;
     }
@@ -93,7 +93,7 @@ public class ProductServiceImpl implements ProductService{
         product.setStorages(productDTO.getStorages());
         product.setQuantityOfColors(productDTO.getQuantityOfColors());
         product.setCategoriesId(productDTO.getCategoriesId());
-        product.setBandId(productDTO.getBandId());
+        product.setBrandId(productDTO.getBandId());
         product.setColor(productDTO.getColor());
         product.setPrice(productDTO.getPrice());
         product.setDisable(productDTO.getDisable());
@@ -135,7 +135,7 @@ public class ProductServiceImpl implements ProductService{
         if (ObjectUtils.isEmpty(productDTO.getPrice())){
             throw new InvalidException("Giá không được để trống");
         }
-        if (!product.getBandId().equalsIgnoreCase(productDTO.getBandId()) && !existBrand){
+        if (!product.getBrandId().equalsIgnoreCase(productDTO.getBandId()) && !existBrand){
             throw new InvalidException(String.format("Mã thương hiệu %s không tồn tại",productDTO.getBandId()));
         }
         if (!product.getCategoriesId().equalsIgnoreCase(productDTO.getCategoriesId()) && !existCategories){
@@ -148,7 +148,7 @@ public class ProductServiceImpl implements ProductService{
         product.setStorages(productDTO.getStorages());
         product.setQuantityOfColors(productDTO.getQuantityOfColors());
         product.setCategoriesId(productDTO.getCategoriesId());
-        product.setBandId(productDTO.getBandId());
+        product.setBrandId(productDTO.getBandId());
         product.setColor(productDTO.getColor());
         product.setPrice(productDTO.getPrice());
         product.setDisable(productDTO.getDisable());
@@ -170,5 +170,11 @@ public class ProductServiceImpl implements ProductService{
     public Page<Product> search(String keyword, int page, int size) {
         Pageable pageable = PageRequest.of(page,size);
         return productRepository.searchByProductName(keyword,pageable);
+    }
+
+    @Override
+    public Page<Product> filter(String filter, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return productRepository.filter(filter,pageable);
     }
 }

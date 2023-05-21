@@ -22,6 +22,12 @@ public class ProductController {
         this.productService = productService;
     }
 
+    @GetMapping("/filter")
+    public ResponseEntity<Page<Product>> filter(@RequestParam String filter,
+                                                @RequestParam int page,
+                                                @RequestParam int size){
+        return new ResponseEntity<>(productService.filter(filter, page, size),HttpStatus.OK);
+    }
     @GetMapping("/search")
     public ResponseEntity<Page<Product>> search(@RequestParam String keyword,
                                                 @RequestParam int page,

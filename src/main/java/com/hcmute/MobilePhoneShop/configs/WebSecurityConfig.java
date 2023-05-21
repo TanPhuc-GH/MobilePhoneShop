@@ -42,18 +42,6 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http.csrf().disable()
-//                .authorizeHttpRequests()
-//                .antMatchers("/swagger-ui/**").permitAll()
-//                .antMatchers("/webjars/**").permitAll()
-//                .antMatchers("/swagger-resources/**").permitAll()
-//                .antMatchers("/v2/**").permitAll()
-//                .antMatchers(HttpMethod.GET, "/api/**").permitAll()
-//                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-//                .antMatchers(HttpMethod.POST, pattern.toArray(new String[0])).permitAll()
-//                .anyRequest().authenticated().and()
-//                .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
-//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.csrf().disable()
                 .authorizeHttpRequests()
                 .antMatchers(HttpMethod.POST, "/api/user" ,"/api/login/**").permitAll()
@@ -63,8 +51,6 @@ public class WebSecurityConfig {
 
         http.authenticationProvider(userAuthenticationProvider);
         http.headers().cacheControl();
-
-        // Add a filter to validate the tokens with every request
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

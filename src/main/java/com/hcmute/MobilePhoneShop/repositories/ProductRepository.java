@@ -16,4 +16,6 @@ public interface ProductRepository extends MongoRepository<Product,String> {
     Page<Product> findBySold_outIsFalse(Pageable pageable);
     @Query("{'productName': { $regex: ?0, $options: 'i' }}")
     Page<Product> searchByProductName(String keyword, Pageable pageable);
+    @Query("{$or: [{'brandId': ?0}, {'categoriesId': ?0}]}")
+    Page<Product> filter(String filter,Pageable pageable);
 }

@@ -15,4 +15,5 @@ public interface ProductService {
     BaseResponse update(String id, ProductDTO productDTO);
     BaseResponse delete(String id);
     Page<Product> search(String keyword, int page, int size);
+    Page<Product> filter(String filter, int page, int size);
 }
