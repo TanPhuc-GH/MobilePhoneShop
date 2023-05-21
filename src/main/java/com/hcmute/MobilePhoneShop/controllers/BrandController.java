@@ -6,6 +6,7 @@ import com.hcmute.MobilePhoneShop.entities.Brand;
 import com.hcmute.MobilePhoneShop.services.brand.BrandService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,10 +29,12 @@ public class BrandController {
     public ResponseEntity<Brand> getBrand(@PathVariable String id){
         return new ResponseEntity<>(brandService.getBrand(id),HttpStatus.OK);
     }
+    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<Brand> createBrand(@RequestBody BrandDTO brandDTO){
         return new ResponseEntity<>(brandService.create(brandDTO), HttpStatus.OK);
     }
+    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<BaseResponse> update(@PathVariable String id, @RequestBody BrandDTO brandDTO){
         try {

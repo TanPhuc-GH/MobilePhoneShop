@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import java.security.Principal;
+
 @Slf4j
 @Service
 public class UserServiceImpl implements UserService{
@@ -22,7 +24,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User create(UserDTO userDTO) {
+    public User create(UserDTO userDTO, Principal principal) {
 
         if (ObjectUtils.isEmpty(userDTO.getName())){
             throw new InvalidException("Tên người dùng không được bỏ trống");
@@ -58,7 +60,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User update(String id, UserDTO userDTO) {
+    public User update(String id, UserDTO userDTO, Principal principal) {
         User user = getUser(id);
         if (ObjectUtils.isEmpty(userDTO.getName())){
             throw new InvalidException("Tên người dùng không được bỏ trống");

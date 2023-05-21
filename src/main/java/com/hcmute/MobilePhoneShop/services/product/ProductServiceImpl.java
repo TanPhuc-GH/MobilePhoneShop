@@ -15,6 +15,9 @@ import com.hcmute.MobilePhoneShop.repositories.ProductRepository;
 import com.sun.javafx.iio.gif.GIFImageLoaderFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -33,9 +36,9 @@ public class ProductServiceImpl implements ProductService{
     CategoriesRepository categoriesRepository;
 
     @Override
-    public List<Product> getAllProduct() {
-        List<Product> products = productRepository.findBySold_outIsFalse();
-        return products;
+    public Page<Product> getAllProduct(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return productRepository.findBySold_outIsFalse(pageable);
     }
 
     @Override
@@ -161,5 +164,11 @@ public class ProductServiceImpl implements ProductService{
         product.setDisable(true);
         productRepository.save(product);
         return new BaseResponse(true,"Delete successful");
+    }
+
+    @Override
+    public Page<Product> search(String keyword, int page, int size) {
+        Pageable pageable = PageRequest.of(page,size);
+        return productRepository.searchByProductName(keyword,pageable);
     }
 }

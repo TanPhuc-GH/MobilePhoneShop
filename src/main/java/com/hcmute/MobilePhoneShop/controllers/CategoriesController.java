@@ -6,6 +6,7 @@ import com.hcmute.MobilePhoneShop.entities.Categories;
 import com.hcmute.MobilePhoneShop.services.categories.CategoriesService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Base64;
@@ -29,10 +30,12 @@ public class CategoriesController {
     public ResponseEntity<Categories> getCategories(@PathVariable String id){
         return new ResponseEntity<>(categoriesService.getCategory(id),HttpStatus.OK);
     }
+    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<Categories> create(@RequestBody CategoriesDTO categoriesDTO){
         return new ResponseEntity<>(categoriesService.create(categoriesDTO), HttpStatus.OK);
     }
+    @PreAuthorize(value = "hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<BaseResponse> upadate(@PathVariable String id, @RequestBody CategoriesDTO categoriesDTO){
         try {

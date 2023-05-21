@@ -24,7 +24,7 @@ public class MobilePhoneShopApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		if (userRepository.count() == 0){
-			User user = new User("Tan Phuc", "0123456789", "Linh Trung, Thu Duc", "truongtanphuc2002@gmail.com","123456", Arrays.asList(EnumRoles.ADMIN.name()));
+			User user = new User("Tan Phuc", "0123456789", "Linh Trung, Thu Duc", "truongtanphuc2002@gmail.com","123456", Arrays.asList(EnumRoles.ROLE_ADMIN.name()));
 			userRepository.save(user);
 		}
 	}
